@@ -1,0 +1,287 @@
+﻿@page
+@model GrowthHormone.App.FrontEnd.Pages.Personas.CreateEditModel
+@{
+}
+
+@if(Model.inserted == 1){
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="fa-solid fa-thumbs-up"></i>
+        <strong>Transacción Exitosa</strong> 
+        <hr/>
+        @Model.msn
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    }
+@if(Model.inserted == 2){
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <strong>Error</strong> 
+        <hr/>
+        @Model.msn
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form method="post">
+    <!--Controles de usuario-->
+    <!------------------------->
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <input type="radio" class="btn-check" id="Especialista" autocomplete="off" checked onclick="showForm('especialistaForm');" name="tipoPersona" value="Especialista">
+                <label class="btn btn-outline-success w-100" for="Especialista">
+                    <i class="fa-solid fa-user-doctor"></i> 
+                    Especialista
+                </label>
+            </div>
+            <div class="col-4">
+                <input type="radio" class="btn-check" id="Paciente" autocomplete="off" onclick="showForm('pacienteForm');" name="tipoPersona" value="Paciente">
+                <label class="btn btn-outline-success w-100" for="Paciente">
+                    <i class="fa-solid fa-children"></i>
+                    Paciente
+                </label>
+            </div>
+            <div class="col-4">
+                <input type="radio" class="btn-check" id="Familiar" autocomplete="off" onclick="showForm('familiarForm');" name="tipoPersona" value="Familiar">
+                <label class="btn btn-outline-success w-100" for="Familiar">
+                    <i class="fa-solid fa-person-breastfeeding"></i>
+                    Familiar
+                </label>
+            </div>
+            
+        </div>
+    </div>
+    <!------------------------->
+
+    <div class="container">
+        
+            <div class="row mt-4">
+                
+                    <!--Persona-->
+                    <div class="col-12 col-sm-6">
+                        <input type="hidden" name="IdPersona">
+                        <input type="text" class="form-control mt-1" name="Documento" value=""  placeholder="Documento">
+                        <input type="text" class="form-control mt-1" name="Nombre" value=""  placeholder="Nombre">
+                        <input type="text" class="form-control mt-1" name="Apellido" value=""  placeholder="Apellido">
+                        <input type="number" class="form-control mt-1" name="Telefono" value=""  placeholder="Teléfono">
+                        
+                        <div class="row">
+                            <div class="col-3">
+                                <label for="genero" class="text-muted mt-1" style="padding-left: 12px;" value="" >Género</label>
+                            </div>
+                            <div class="col-9">
+                                <div class="form-check form-check-inline mt-1 w-100">
+                                    <select class="form-select w-100" name="Genero" aria-placeholder="Género">
+                                        <option value="Masculino" selected>Masculino</option>
+                                        <option value="Femenino">Femenino</option>
+                                        <option id="Intersexual" value="Intersexual">Intersexual</option>
+                                    </select>   
+                                </div> 
+                            </div>
+                        </div>            
+                    </div>
+
+                    <!--Especificación-->
+                    <div class="col-12 col-sm-6">
+                        <!--Especialista-->
+                        <div id="especialistaForm">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for="especilidad" class="text-muted mt-2 ms-2">Especialidad</label>
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-check form-check-inline mt-1 w-100">
+                                        <select class="form-select w-100" asp-for="Especialista.Especialidad"  aria-placeholder="Especialidad">
+                                            <option selected>Pediatra</option>
+                                            <option>Endocrino</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <input type="text" class="form-control mt-1" asp-for="Especialista.Registro" value=""  placeholder="Registro">
+                        </div>
+                        
+                        <!--Paciente-->
+                        <div id="pacienteForm" style="display: none;">
+                            <div class="row">
+                                <div class="col-3">
+                                    <label for="nacimiento" class="text-muted mt-1" style="padding-left: 12px;">Nacimiento</label>
+                                </div>
+                                <div class="col-9">
+                                    <div class="form-check">
+                                        <input type="date" asp-for="Paciente.FechaNacimiento" class="form-control w-100">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-3">
+                                    <label for="ciudad" class="text-muted" style="padding-left: 12px;">Ciudad</label>
+                                </div>
+                                <div class="col-9">
+                                    <div class="form-check form-check-inline w-100">
+                                        <select class="form-select w-100" asp-for="Paciente.Ciudad"  aria-placeholder="Ciudad">
+                                            <!--TODO: Este código debe revisarse porque genera error-->
+                                            @if(Model.Paciente != null){
+                                                <option selected value="@Model.Paciente.Ciudad">@Model.Paciente.Ciudad</option>
+                                            }
+                                            @foreach(string city in Model.cities){
+                                                <option value="@city">@city</option>
+                                            }
+                                            <!-------------------------------------------------------->
+                                            @* <option value="Soacha">Soacha</option>
+                                            <option value="Medellín">Medellín</option>
+                                            <option value="Bogotá">Bogotá</option>
+                                            <option value="Santa Marta">Santa Marta</option>
+                                            <option value="Ibagué">Ibagué</option>
+                                            <option value="Fusagasugá">Fusagasugá</option>
+                                            <option value="Tunja">Tunja</option> *@
+                                        </select>  
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control mt-1" asp-for="Paciente.Direccion" placeholder="Dirección">
+                            <input type="text" class="form-control mt-1" asp-for="Paciente.Latitud" placeholder="Latitud">
+                            <input type="text" class="form-control mt-1" asp-for="Paciente.Longitud" placeholder="Longitud">                    
+                        </div>
+
+                        <!--Familiar-->
+                        <div id="familiarForm" style="display: none;">
+                            <div>
+                                <input type="email" class="form-control mt-1" asp-for="Familiar.Correo" placeholder="Email">
+                                <label id="labelAddFamiliar" for="addFamiliar" class="text-muted mt-1" style="padding-left: 12px;">Pacientes</label>
+                                <button id="addFamiliar" type="button" class="rounded-circle btn btn-primary ms-4 mt-1" data-bs-toggle="modal" data-bs-target="#addPaciente">
+                                    <i class="fa-regular fa-plus"></i>
+                                </button>
+                            </div>
+
+                            <div style="height: 110px; overflow-y: scroll;">
+                                <table class="table" id="children" name="children">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Hijos</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                
+            </div>
+
+            <!--Submit-->
+            <div class="row">
+                    <p class="text-center mt-3">
+                        <input type="hidden" id="ids" name="ids" value=""> <!--Id's de pacientes-->
+                        <input type="hidden" id="parentescos" name="parentescos" value=""> <!--Parentescos de familiares vs pacientes-->
+                        <button type="submit" class="btn btn-primary w-50">
+                            GUARDAR
+                        </button>
+                    </p>
+            </div>
+        
+    </div>
+</form>
+
+<!-- Modal AddPaciente-->
+<div class="modal fade" id="addPaciente" tabindex="-1" aria-labelledby="addPacienteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addPacienteLabel">Agregar Paciente</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            @foreach(var pacienteFam in @Model.Pacientes){
+                <div class="alert alert-success">
+                    <div class="row">
+                        <div class="col-10">
+                            @pacienteFam.Nombre @pacienteFam.Apellido (@pacienteFam.Id)
+                        </div>
+                        <div class="col-2">
+                            <button type="button" id="btnAddPaciente'@pacienteFam.Id'" class="rounded-circle btn btn-success" onclick="addPacienteFamiliar('@(pacienteFam.Id)', '@(pacienteFam.Nombre)', '@(pacienteFam.Apellido)')">
+                                <i class="fa-solid fa-user-plus"></i>
+                            </button>
+                        </div>
+                        <div class="col-12">
+                            <input type="text" name="parentesco'@pacienteFam.Id'" id="parentesco'@pacienteFam.Id'" placeholder="Parentesco">
+                        </div>
+                    </div>
+                </div>
+            }
+          </form>
+        </div>
+        <div class="modal-footer">
+            <em class="text-muted">
+                <small>
+                    Asignación de un paciente encontrado al Familiar
+                </small>
+            </em>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+    // Cargar los datos del formulario de Editar Persona
+    if(localStorage.getItem("personDataSaved") != null)
+    {
+        Documento = localStorage.getItem("personDocument");
+        Nombre = localStorage.getItem("personName");
+        Apellido = localStorage.getItem("personSurename");
+        Telefono = localStorage.getItem("personPhone");
+        Genero = localStorage.getItem("personGender");
+        personType = localStorage.getItem("personType");
+        IdPersona = localStorage.getItem("personId"); 
+
+        document.getElementsByName("IdPersona")[0].value = IdPersona;
+        document.getElementsByName("Documento")[0].value = Documento;
+        document.getElementsByName("Nombre")[0].value = Nombre;
+        document.getElementsByName("Apellido")[0].value = Apellido;
+        document.getElementsByName("Telefono")[0].value = Telefono;
+        document.getElementsByName("Genero")[0].value = Genero;
+
+        var idForm = '';
+
+        // Bloqueo de Radios y definición de formulario a mostrar
+        // ================================
+        if(personType == 'pacienteUpdate'){
+            document.getElementsByName("tipoPersona")[1].checked = true;
+            document.getElementById("Familiar").disabled = true;
+            document.getElementById("Especialista").disabled = true; 
+            idForm = 'pacienteForm';
+            document.getElementById('Intersexual').style.display = 'none'; // Intersexual no está disponible para Pacientes
+        }
+        else if(personType == 'familiarUpdate'){
+            document.getElementById("Paciente").disabled = true;
+            document.getElementById("Especialista").disabled = true; 
+            document.getElementsByName("tipoPersona")[2].checked = true;
+
+            // Esconder la tabla para agregar hijos, puesto que no se precisa modificar esta asignación
+            document.getElementById("labelAddFamiliar").style.display = 'none';
+            document.getElementById("addFamiliar").style.display = 'none';
+            document.getElementById("children").style.display = 'none';
+
+            idForm = 'familiarForm';
+        }
+        // ================================
+
+        // Mostrar formulario según radio seleccionado
+        // ================================
+        let forms = ['pacienteForm', 'especialistaForm', 'familiarForm'];
+        forms.forEach(element => {
+            if(element != idForm){
+                document.getElementById(element).style.display = 'none';
+            }
+            else{
+                document.getElementById(element).style.display = 'block';
+            }
+        });
+        // ================================
+    }
+</script>

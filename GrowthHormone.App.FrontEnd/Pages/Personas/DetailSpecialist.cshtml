@@ -1,0 +1,98 @@
+﻿@page
+@model GrowthHormone.App.FrontEnd.Pages.Personas.DetailSpecialistModel
+@{
+}
+
+<p class="h4 mt-3 text-muted">
+    Especialista
+</p>
+
+<div class="container">
+    <div class="row">
+        <!--Identificación-->
+        <div class="col-6">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                      <i class="fa-solid fa-user-doctor fa-10x m-5 mt-4 mb-1 ms-3"></i>
+                      
+                  </div>
+            
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title text-end text-primary">@Model.Especialista.Nombre @Model.Especialista.Apellido</h5>
+                      <p class="text-end">
+                        <small class="text-secondary"><i>Especialidad: </i> Médico @Model.Especialista.Especialidad</small>
+                      </p>
+                      <hr>
+                      <p class="card-text">
+                        <strong><i class="fa-solid fa-id-card text-primary ms-1 me-2"></i></strong> @Model.Especialista.Documento <br>
+                        <strong><i class="fa-solid fa-venus-mars text-primary ms-1 me-2" text-primary></i></strong> @Model.Especialista.Genero <br>
+                        
+                      </p>
+                      <p class="card-text text-end">
+                        <small class="text-muted">
+                          <i class="fa-solid fa-code me-2"></i>
+                          Growth Hormone System
+                        </small>
+                      </p>
+            
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Pacientes-->
+        <div class="col-6">
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <h5 class="text-primary">Pacientes Asignados</h5>
+                    </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+
+
+                                @foreach(var paciente in Model.Pacientes){
+                                    @if(paciente.Genero.ToString().Equals("Femenino")){
+                                        <div class="alert text-light" style="background-color: #f99efd;">
+                                            <i class="fa-solid fa-venus me-2"></i>
+                                            @paciente.Nombre @paciente.Apellido
+                                            <hr>
+                                            <small>
+                                                <i class="fa-solid fa-calendar"></i> @paciente.FechaNacimiento <br>
+                                                <i class="fa-solid fa-phone"></i> @paciente.Telefono
+                                            </small>
+                                        </div>
+                                    }
+                                    else{
+                                        <div class="alert alert-primary">
+                                            <i class="fa-solid fa-mars"></i>
+                                            @paciente.Nombre @paciente.Apellido
+                                            <hr>
+                                            <small>
+                                                <i class="fa-solid fa-calendar"></i> @paciente.FechaNacimiento <br>
+                                                <i class="fa-solid fa-phone"></i> @paciente.Telefono
+                                            </small>
+                                        </div>
+                                    }
+                                    
+                                }
+
+
+                                @if(@Model.numPacientes == 0){
+                                    <p class="text-danger">
+                                        Sin pacientes asignados. Paciencia, ya vendrán!
+                                    </p>
+                                }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

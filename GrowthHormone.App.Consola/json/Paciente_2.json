@@ -1,0 +1,12 @@
+{
+    "Nombre" : "Alexandra",
+    "Apellido" : "Vargas",
+    "Documento" : "98745242",
+    "Telefono" : "202020202",
+    "Genero" : "Femenino",
+    "Direccion" : "Kra 71 # 1-2",
+    "Latitud" : "12.343",
+    "Longitud" : "1.0343",
+    "Ciudad" : "Bogotá",
+    "FechaNacimiento" : "2022-04-03"
+}

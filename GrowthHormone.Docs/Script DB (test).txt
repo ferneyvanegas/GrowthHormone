@@ -1,0 +1,28 @@
+/* Script Delete Tables: */
+DROP TABLE RegistroPatron;
+DROP TABLE Parentesco;
+DROP TABLE Cuidados;
+DROP TABLE Paciente;
+DROP TABLE Familiar;
+DROP TABLE Especialista;
+DROP TABLE Historia;
+
+/* Script Delete Registros: */
+DELETE FROM parentesco;
+DELETE FROM paciente;
+DELETE FROM familiar;
+DELETE FROM especialista;
+DELETE FROM RegistroPatron;
+DELETE FROM Historia;
+
+/* Script Insert Especialistas */
+INSERT INTO Especialista(Especialidad, Registro, Nombre, Apellido, Telefono, Documento, Genero)
+VALUES('Pediatra', 'ESP0001', 'Ferney', 'Vanegas', '3154687456', '1325648745', 0);
+INSERT INTO Especialista(Especialidad, Registro, Nombre, Apellido, Telefono, Documento, Genero)
+VALUES('Endocrino', 'ESP0002', 'Elizabeth', 'Ruiz', '3172589631', '1456321548', 1);
+INSERT INTO Especialista(Especialidad, Registro, Nombre, Apellido, Telefono, Documento, Genero)
+VALUES('Pediatra', 'ESP0003', 'Chester', 'Benington', '3205687452', '1523698520', 0);
+
+/* Script Insert Familiar */
+INSERT INTO Familiar(Correo, Nombre, Apellido, Telefono, Documento, Genero)
+VALUES('mery@correo.com', 'Mery', 'Sánchez', '3174561230', '40852369', 1);

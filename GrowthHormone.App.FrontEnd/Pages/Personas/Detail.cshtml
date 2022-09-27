@@ -1,0 +1,73 @@
+﻿@page
+@model GrowthHormone.App.FrontEnd.Pages.Personas.DetailModel
+@{
+}
+
+<p class="h4 mt-3 text-muted">
+    Paciente
+</p>
+
+<div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+          <i class="fa-solid fa-child fa-10x m-5 mt-4 mb-1"></i>
+          
+          <!--Controles-->
+          <div class="row">
+            <div class="col-6">
+              <!--Agregar Especialistas a niño-->
+              <a class="btn btn-dark w-100 m-2" asp-page="./AsignarEspecialista" asp-route-id="@Model.Paciente.Id">
+                <i class="fa-solid fa-plus"></i>
+                <i class="fa-solid fa-user-doctor fa-2x"></i> <br>
+              </a>
+            </div>
+            <!--Agregar Registros a niño-->
+            <div class="col-6">
+              <a class="btn btn-dark w-100 m-2" asp-page="./History" asp-route-pacienteId="@Model.Paciente.Id">
+                <i class="fa-solid fa-plus"></i>
+                <i class="fa-solid fa-note-sticky fa-2x"></i>
+                </a>
+            </div>
+          </div>
+      </div>
+
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title text-end text-primary">@Model.Paciente.Nombre @Model.Paciente.Apellido</h5>
+          <p class="text-end">
+            <small class="text-secondary"><i>Nacimiento</i> @Model.Paciente.FechaNacimiento</small>
+          </p>
+          <hr>
+          <p class="card-text">
+            <strong><i class="fa-solid fa-id-card text-primary ms-1 me-2"></i></strong> @Model.Paciente.Documento <br>
+            <strong><i class="fa-solid fa-venus-mars text-primary ms-1 me-2" text-primary></i></strong> @Model.Paciente.Genero <br>
+            <strong><i class="fa-solid fa-house-user text-primary ms-1 me-2"></i></strong>  @Model.Paciente.Direccion, @Model.Paciente.Ciudad <br>
+            <strong><i class="fa-solid fa-phone text-primary ms-1 me-2"></i></strong> @Model.Paciente.Telefono <br>
+            <strong><i class="fa-solid fa-user-doctor text-primary ms-1 me-2"></i></strong> 
+                @if(Model.Especialistas[0] != null){
+                    
+                      <em>@Model.Especialistas[0].Nombre</em>  <em>@Model.Especialistas[0].Apellido</em>
+                    
+                }
+              <i>(Endocrino)</i><br>
+            <strong><i class="fa-solid fa-user-doctor text-primary ms-1 me-2"></i></strong> 
+                @if(Model.Especialistas[1] != null){
+                    
+                      <em>@Model.Especialistas[1].Nombre</em>  <em>@Model.Especialistas[1].Apellido</em>
+                    
+                }
+              <i>(Pediatra)</i><br>
+            
+          </p>
+          <p class="card-text text-end">
+            <small class="text-muted">
+              <i class="fa-solid fa-location-dot me-2"></i>
+              <strong>Lat:</strong> @Model.Paciente.Latitud
+              <strong>Lon:</strong> @Model.Paciente.Longitud
+            </small>
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </div>

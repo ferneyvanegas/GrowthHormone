@@ -1,0 +1,222 @@
+﻿@page
+@model GrowthHormone.App.FrontEnd.Pages.Personas.ListModel
+@{
+}
+<!--Controles de usuario-->
+<!------------------------->
+<div class="continer">
+    <div class="row">
+
+        <!--Especialista-->
+        <div class="col-4 col-md-3 mt-2">
+            <input type="radio" class="btn-check" id="EspecialistaL" autocomplete="off" checked onclick="showList('especialistaList', 'Especialistas');" name="tipoPersonaList" value="Especialista">
+            <label class="btn btn-outline-info w-100" for="EspecialistaL">
+                <i class="fa-solid fa-user-doctor"></i> 
+                @* Especialista *@
+            </label>
+        </div>
+
+        <!--Paciente-->
+        <div class="col-4 col-md-3 mt-2">
+            <input type="radio" class="btn-check" id="PacienteL" autocomplete="off" onclick="showList('pacienteList', 'Pacientes');" name="tipoPersonaList" value="Paciente">
+            <label class="btn btn-outline-info w-100" for="PacienteL">
+                <i class="fa-solid fa-children"></i>
+                @* Paciente *@
+            </label>
+        </div>
+
+        <!--Familiar-->
+        <div class="col-4 col-md-3 mt-2">
+            <input type="radio" class="btn-check" id="FamiliarL" autocomplete="off" onclick="showList('familiarList', 'Familiares');" name="tipoPersonaList" value="Familiar">
+            <label class="btn btn-outline-info w-100" for="FamiliarL">
+                <i class="fa-solid fa-person-breastfeeding"></i>
+                @* Familiar *@
+            </label>
+        </div>
+
+        <!--Busquedas-->
+        <div class="col-12 col-md-3 d-flex flex-row-reverse mt-2">
+            <!--Buscar Paciente-->
+            <div id="buscarPersona" style="display:none;">
+                <form class="d-flex" role="search" method="post">
+                    <input class="form-control me-2 w-100" type="text" placeholder="ID. Paciente" name="idPaciente">
+                    <button  type="submit" class="btn btn-primary text-light" asp-page="/Personas/Detail">
+                        BUSCAR
+                    </button>  
+                </form>   
+            </div>   
+
+            <!--Buscar Especialista-->
+            <div id="buscarEspecialista" style="display:block;">
+                <form class="d-flex" role="search" method="post">
+                    <input class="form-control me-2 w-100" type="text" placeholder="ID. Especialista" name="idEspecialista">
+                    <button  type="submit" class="btn btn-primary text-light" asp-page="/Personas/DetailSpecialist">
+                        BUSCAR
+                    </button>  
+                </form>   
+            </div>    
+
+        </div>
+
+    </div>
+</div>
+<!------------------------->
+
+<!--Títulos-->
+<!------------------------->
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <p class="h3 mt-3 text-primary" id="listTitle">
+                Especialistas
+            </p>
+        </div>
+    </div>
+</div>
+<!------------------------->
+
+<!--Especialistas-->
+<div id="especialistaList">
+    <table class="table table-striped table-hover mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+                <th>Especialidad</th>
+                <th>Registro</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var especialista in Model.Especialistas){
+                <tr>
+                    <td>@especialista.Id</td>
+                    <td>@especialista.Nombre</td>
+                    <td>@especialista.Apellido</td>
+                    <td>@especialista.Telefono</td>
+                    <td>@especialista.Especialidad</td>
+                    <td>@especialista.Registro</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<!------------------------->
+
+<!--Pacientes-->
+<div id="pacienteList" style="display:none;">
+    <table class="table table-striped table-hover mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var paciente in Model.Pacientes){
+                <tr>
+                    <td>@paciente.Id</td>
+                    <td>@paciente.Nombre</td>
+                    <td>@paciente.Apellido</td>
+                    <td>@paciente.Telefono</td>
+                    <td>@paciente.Direccion</td>
+                    <td>
+                        <!--Para editar un paciente-->
+                        <a class="btn btn-light rounded-circle m-0 p-0" asp-page="./CreateEdit" asp-route-personType="1" asp-route-personId="@paciente.Id" onclick="saveToPassPersonData('@paciente.Documento', '@paciente.Nombre', '@paciente.Apellido', '@paciente.Telefono', '@paciente.Genero', 'pacienteUpdate', '@paciente.Id');">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!--Familiares-->
+<div id="familiarList" style="display:none;">
+    <table class="table table-striped table-hover mt-3">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var familiar in Model.Familiares){
+                <tr>
+                    <td>@familiar.Id</td>
+                    <td>@familiar.Nombre</td>
+                    <td>@familiar.Apellido</td>
+                    <td>@familiar.Telefono</td>
+                    <td>@familiar.Correo</td>
+                    <td>
+                        <!--Para editar un familiar-->
+                        <a class="btn btn-light rounded-circle m-0 p-0" asp-page="./CreateEdit" asp-route-personType="2" asp-route-personId="@familiar.Id" onclick="saveToPassPersonData('@familiar.Documento', '@familiar.Nombre', '@familiar.Apellido', '@familiar.Telefono', '@familiar.Genero', 'familiarUpdate', '@familiar.Id');">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<script>
+    if(localStorage.getItem("lastListShowed") != null){
+        var idList = localStorage.getItem("lastListShowed");
+        var listName = localStorage.getItem("lastListNamed");
+        var indexRadio = 0;
+
+        let lists = ['pacienteList', 'especialistaList', 'familiarList'];
+        lists.forEach(element => {
+            if(element != idList){
+                document.getElementById(element).style.display = 'none';
+            }
+            else{
+                document.getElementById(element).style.display = 'block';
+            }
+        });
+
+        // checkar radios
+        // ============================
+        switch(idList){
+            case "especialistaList":indexRadio = 0;  break;
+            case "pacienteList": indexRadio = 1; break;
+            case "familiarList": indexRadio = 2; break;
+        }
+
+        for(var x=0; x<3; x++){
+            if(x == indexRadio)
+                document.getElementsByName("tipoPersonaList")[x].checked = true;
+            else
+            document.getElementsByName("tipoPersonaList")[x].checked = false;
+        }
+        // ============================
+
+        document.getElementById('listTitle').innerHTML = listName; // Definir el título
+
+        //Buscar Pacientes
+        if(listName == "Pacientes")
+            document.getElementById("buscarPersona").style.display = 'block';
+        else
+            document.getElementById("buscarPersona").style.display = 'none';
+
+        
+        //Buscar Especialistas
+        if(listName == "Especialistas")
+            document.getElementById("buscarEspecialista").style.display = 'block';
+        else
+            document.getElementById("buscarEspecialista").style.display = 'none';
+        
+    }
+</script>

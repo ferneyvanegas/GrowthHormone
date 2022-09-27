@@ -1,0 +1,12 @@
+{
+    "Nombre" : "Oscar",
+    "Apellido" : "Santa",
+    "Documento" : "1234568",
+    "Telefono" : "10101010",
+    "Genero" : "Masculino",
+    "Direccion" : "Av. 35 bis sur",
+    "Latitud" : "5.343",
+    "Longitud" : "5.0343",
+    "Ciudad" : "Bogotá",
+    "FechaNacimiento" : "2020-01-01"
+}

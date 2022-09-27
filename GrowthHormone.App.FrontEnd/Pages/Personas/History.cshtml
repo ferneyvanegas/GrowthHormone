@@ -1,0 +1,91 @@
+﻿@page
+@model GrowthHormone.App.FrontEnd.Pages.Personas.HistoryModel
+@{
+}
+
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <button class="nav-link active" id="nav-patrones-tab" data-bs-toggle="tab" data-bs-target="#nav-patrones" type="button" role="tab" aria-controls="nav-patrones" aria-selected="true">Patrones</button>
+    <button class="nav-link" id="nav-cuidados-tab" data-bs-toggle="tab" data-bs-target="#nav-cuidados" type="button" role="tab" aria-controls="nav-cuidados" aria-selected="false">Cuidados</button>
+  </div>
+</nav>
+
+<div class="tab-content" id="nav-tabContent">
+  <!--Patrones-->
+  <div class="tab-pane fade show active" id="nav-patrones" role="tabpanel" aria-labelledby="nav-patrones-tab" tabindex="0">
+    <!--Formulario-->
+    <form action="" method="post">
+        <div class="container mt-2">
+            <div class="row">
+                <div class="col-3">
+                    <select class="form-control" name="patron" id="patron">
+                        <option value="peso">Peso</option>
+                        <option value="perimetroCefalico">Perimetro Cefalico</option>
+                        <option value="talla">Talla</option>
+                        <option value="medidaAbdominal">Medida Abdominal</option>
+                    </select>
+                </div>
+                <div class="col-3">
+                    <input class="form-control" type="text" name="patronValue" id="patronValue" placeholder="valor">
+                </div>
+                <div class="col-3">
+                    <input type="hidden" id="idPaciente" name="idPaciente" asp-for="Paciente.Id">
+                    <button type="submit" class="btn btn-primary">
+                        Registrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!--Tabla Registros-->
+    <table class="table table-striped-columns">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Patron</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if(Model.Historia != null){
+          @foreach(var patron in Model.Historia.RegistrosPatrones){
+            <tr>
+                <td>@patron.FechaHora</td>
+                <td>
+                  @if(@patron.Crecimiento.ToString().Equals("peso")){
+                    <i class="fa-solid fa-scale-balanced"></i> <em>Peso</em>
+                  }
+
+                  @if(@patron.Crecimiento.ToString().Equals("perimetroCefalico")){
+                    <i class="fa-regular fa-face-smile"></i> <em>Perímetro Cefálico</em>
+                  }
+
+                  @if(@patron.Crecimiento.ToString().Equals("talla")){
+                    <i class="fa-solid fa-ruler"></i> <em>Talla</em>
+                  }
+
+                  @if(@patron.Crecimiento.ToString().Equals("medidaAbdominal")){
+                    <i class="fa-solid fa-lemon"></i> <em>Medida Abdominal</em>
+                  }
+
+                  </td>
+                <td>@patron.Valor</td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+
+  </div>
+  
+  <!--Cuidados-->
+  <div class="tab-pane fade" id="nav-cuidados" role="tabpanel" aria-labelledby="nav-cuidados-tab" tabindex="0">
+    <p class="text-center text-danger">
+        <i class="fa-solid fa-circle-exclamation text-warning fa-10x m-3"></i> <br>
+        No disponible aún
+    </p>
+
+  </div>
+</div>
+

@@ -1,0 +1,12 @@
+{
+    "Nombre" : "Naruto",
+    "Apellido" : "Uzumaki",
+    "Documento" : "3030302",
+    "Telefono" : "5475454",
+    "Genero" : "Masculino",
+    "Direccion" : "Av. Plaza Gerardo",
+    "Latitud" : "1.2",
+    "Longitud" : "3.43",
+    "Ciudad" : "Bogotá",
+    "FechaNacimiento" : "2022-01-03"
+}

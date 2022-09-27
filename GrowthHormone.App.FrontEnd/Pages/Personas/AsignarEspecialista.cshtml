@@ -1,0 +1,87 @@
+@page
+@model GrowthHormone.App.FrontEnd.Pages.Personas.AsignarEspecialistaModel
+@{   
+}
+
+<div class="container mb-2">
+    <div class="row">
+        <!--Título-->
+        <div class="col-5">
+            <h4 class="text-muted">Asignar Especialista</h4>
+        </div>
+        <!--Indicadores-->
+        <div class="col-7">
+            <div class="row">
+                <div class="col-6">
+                    <button id="controlAddEndocrino" class="btn btn-success w-100" disabled style="display: none;">
+                        Endocrino <i class="fa-solid fa-check"></i><br>
+                        <small id="addEndocrinoName">
+
+                        </small>
+                    </button>
+                </div>
+                <div class="col-6">
+                    <button id="controlAddPediatra" class="btn btn-success w-100" disabled style="display: none;">
+                        Pediatra <i class="fa-solid fa-check"></i><br>
+                        <small id="addPediatraName">
+
+                        </small>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<table class = "table table-hover">
+    <thead>
+        <tr>
+            <th>Especialista</th>
+            <th cols="2">Especialidad</th>
+            <th></th>
+        </tr>
+    </thead>
+    @foreach (var especialista in Model.Especialistas)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @if(especialista.Genero.ToString().Equals("Femenino")){
+                        <i class="fa-solid fa-venus text-success"></i>
+                    }
+                    else if(especialista.Genero.ToString().Equals("Masculino")){
+                        <i class="fa-solid fa-mars text-primary"></i>
+                    }
+                    else{
+                        <i class="fa-solid fa-question text-warning"></i>
+                    }
+                     @especialista.Nombre @especialista.Apellido <br>
+                     <div class="text-muted">
+                        <small>
+                            <p class="text-start">
+                                <i class="fa-solid fa-phone"></i> @especialista.Telefono
+                            </p>
+                        </small>
+                     </div>
+                </td>
+                <td>@especialista.Especialidad</td>
+                <td cols="2">
+                    <button type="button" class="btn btn-primary rounded-circle" onclick="asignSpecialist('@especialista.Id', '@especialista.Especialidad', '@especialista.Nombre @especialista.Apellido');">
+                        <i class="fa-solid fa-check"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>   
+    }
+</table>
+
+<form method="post">
+    <input type="hidden" id="idPaciente" name="idPaciente" asp-for = "Paciente.Id">
+    <input type="hidden" id="endocrino" name="endocrino">
+    <input type="hidden" id="pediatra" name="pediatra">
+    <p class="text-center">
+        <button type="submit" class="btn btn-primary w-50" asp-page-handle = "ToAssign">Asignar</button>  
+    </p>
+    
+</form>
