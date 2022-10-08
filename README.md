@@ -1,9 +1,9 @@
 # GrowthHormone
 Proyecto de Ciclo 3 - MinTic &amp; U. Caldas
 
-## Integrantes
+## Info
 
-WebApp desarrollada en .net 6.0, con arquitectura MVC.
+WebApp desarrollada en .net 6.0 (C#, HTML, JavaScript y CSS) | MVC.
 
 ## Cómo usar?
 
